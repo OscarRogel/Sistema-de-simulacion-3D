@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: portal-mcq-supabase
+    env: php
+    region: oregon # O puedes cambiarlo a una región más cercana como ohio
+    plan: free
+    buildCommand: "composer install --optimize-autoloader --no-dev && php artisan config:cache && php artisan route:cache"
+    startCommand: "apache2-foreground"
