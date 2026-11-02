@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: sistema-mcq-3d
-    env: php
-    plan: free
-    buildCommand: "composer install --optimize-autoloader --no-dev && php artisan config:cache && php artisan route:cache"
-    startCommand: "apache2-foreground"
