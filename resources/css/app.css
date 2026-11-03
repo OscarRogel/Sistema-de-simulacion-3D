@@ -7,3 +7,78 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+:root {
+  --rogcla-oxford: #0A1128;
+  --rogcla-slate: #1E293B;
+  --rogcla-sapphire: #2563EB;
+  --rogcla-silver: #94A3B8;
+  --rogcla-white: #F8FAFC;
+}
+
+/* Badge del Logo <RC/> para Navbar o Login */
+.rc-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+}
+
+.rc-monogram {
+  background-color: var(--rogcla-oxford);
+  border: 1px solid rgba(37, 99, 235, 0.45);
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(10, 17, 40, 0.25);
+}
+
+.rc-monogram .rc-brackets {
+  color: var(--rogcla-sapphire);
+  font-weight: 500;
+}
+
+.rc-monogram .rc-letters {
+  color: var(--rogcla-white);
+  font-weight: 800;
+  margin: 0 1px;
+}
+
+.rc-brand-titles {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.rc-brand-main {
+  color: var(--rogcla-white); /* Cambia a var(--rogcla-oxford) si tu navbar es blanca */
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+
+.rc-brand-sub {
+  color: var(--rogcla-silver);
+  font-weight: 600;
+  font-size: 0.58rem;
+  letter-spacing: 0.26em;
+  margin-top: 2px;
+}
+
+/* Footer corporativo */
+.rc-footer {
+  background-color: var(--rogcla-oxford);
+  color: var(--rogcla-silver);
+  border-top: 1px solid rgba(148, 163, 184, 0.15);
+  padding: 1.25rem 2rem;
+  font-size: 0.82rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

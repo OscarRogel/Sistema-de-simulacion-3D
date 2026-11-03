@@ -50,6 +50,7 @@
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
@@ -121,7 +122,7 @@
                         </div>
                         <div>
                             <h2 class="font-bold text-sm leading-tight">Portal Global MCQ</h2>
-                            <p class="text-[11px] text-slate-400">Laravel + Supabase 3D</p>
+                            <p class="text-[11px] text-slate-400">Digital RogCla Studios</p>
                         </div>
                     </div>
                 </div>
@@ -2524,5 +2525,17 @@
         }
 
     </script>
+
+<footer class="rc-footer">
+  <div>
+    <span>Desarrollado por <strong style="color: #F8FAFC;">Digital RogCla Studio</strong></span>
+    <span style="margin: 0 8px; opacity: 0.4;">|</span>
+    <span style="font-style: italic;">Software a medida que impulsa tu negocio</span>
+  </div>
+  <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;">
+    <span style="color: #2563EB;">&lt;</span><strong style="color: #F8FAFC;">RC</strong><span style="color: #2563EB;">/&gt;</span> &copy; {{ date('Y') }}
+  </div>
+</footer>
+
 </body>
 </html>
