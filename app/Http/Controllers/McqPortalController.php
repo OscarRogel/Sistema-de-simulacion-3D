@@ -93,7 +93,7 @@ class McqPortalController extends Controller
 
         $user = $users[0];
         
-        // Validación directa compatible con texto plano y hashes
+        // Validación segura compatible con texto plano y hashes
         $matches = ($request->password === $user['password']) || Hash::check($request->password, $user['password']);
 
         if (!$matches) {
@@ -134,8 +134,12 @@ class McqPortalController extends Controller
             'updated_at' => now()->toIso8601String(),
         ];
 
-        $this->supabase(['Prefer' => 'resolution=merge-duplicates'])
+        $response = $this->supabase(['Prefer' => 'resolution=merge-duplicates'])
             ->post('/mcq_tests', $payload);
+
+        if (!$response->successful()) {
+            return response()->json(['error' => 'No se pudo guardar el registro en Supabase'], 500);
+        }
 
         return response()->json(['status' => 'ok', 'id' => $id]);
     }
@@ -157,19 +161,24 @@ class McqPortalController extends Controller
 
     public function addBrand(Request $request)
     {
-        $this->supabase()->post('/brands', [
+        $response = $this->supabase()->post('/brands', [
             'id' => $request->id,
             'name' => $request->name,
             'badge' => strtoupper($request->badge),
             'color' => $request->color,
         ]);
+
+        if (!$response->successful()) {
+            return response()->json(['error' => 'No se pudo registrar la marca. Es posible que el ID ya exista.'], 400);
+        }
+
         return response()->json(['status' => 'ok']);
     }
 
     public function addBox(Request $request)
     {
         $id = 'box-' . time();
-        $this->supabase()->post('/master_boxes', [
+        $response = $this->supabase()->post('/master_boxes', [
             'id' => $id,
             'brand_id' => $request->brandId,
             'name' => $request->name,
@@ -179,17 +188,35 @@ class McqPortalController extends Controller
             'tare' => $request->tare,
             'max_kg' => $request->maxKg,
         ]);
+
+        if (!$response->successful()) {
+            return response()->json(['error' => 'No se pudo registrar la caja master'], 400);
+        }
+
         return response()->json(['status' => 'ok', 'id' => $id]);
     }
 
     public function addUser(Request $request)
     {
-        $this->supabase()->post('/mcq_users', [
-            'username' => strtolower(trim($request->username)),
+        $username = strtolower(trim($request->username));
+        
+        // Validar si el usuario ya existe
+        $existing = $this->supabase()->get('/mcq_users', ['username' => 'eq.' . $username])->json();
+        if (!empty($existing)) {
+            return response()->json(['error' => 'El nombre de usuario ya está en uso'], 400);
+        }
+
+        $response = $this->supabase()->post('/mcq_users', [
+            'username' => $username,
             'name' => trim($request->name),
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role' => $request->role ?? 'USER',
         ]);
+
+        if (!$response->successful()) {
+            return response()->json(['error' => 'Error al crear el usuario en la base de datos'], 400);
+        }
+
         return response()->json(['status' => 'ok']);
     }
 
@@ -215,7 +242,6 @@ class McqPortalController extends Controller
 
     public function deleteBrand(string $id)
     {
-        // Al tener borrado en cascada en las tablas relacionales, eliminar la marca limpia sus cajas y tests asociados
         $this->supabase()->delete('/brands?id=eq.' . urlencode($id));
         return response()->json(['status' => 'deleted']);
     }

@@ -18,4 +18,7 @@ Route::prefix('api/mcq')->group(function () {
     Route::delete('/boxes/{id}', [McqPortalController::class, 'deleteBox']);
     Route::delete('/seasons/{code}', [McqPortalController::class, 'deleteSeason']);
     Route::delete('/brands/{id}', [McqPortalController::class, 'deleteBrand']);
+    Route::get('/users', [McqPortalController::class, 'getUsers']);
+    Route::post('/users', [McqPortalController::class, 'storeUser']);
+    Route::delete('/users/{username}', [McqPortalController::class, 'deleteUser']);
 });
